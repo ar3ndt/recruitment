@@ -1,0 +1,67 @@
+[10569]  core @0.000010> loading Dancer::Handler::Standalone handler in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 45
+[10569]  core @0.000246> loading handler 'Dancer::Handler::Standalone' in /usr/local/share/perl/5.14.2/Dancer.pm l. 483
+>> Dancer 1.3121 server 10569 listening on http://0.0.0.0:3000
+[10569]  core @0.000142> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000561> [hit #1]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.000799> [hit #1]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.008077> [hit #1]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000204> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000961> [hit #2]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000146> request: GET /favicon.ico from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000681> [hit #3]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000227> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000905> [hit #4]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.001171> [hit #4]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.005392> [hit #4]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000219> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.001267> [hit #5]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000146> request: GET /favicon.ico from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000668> [hit #6]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000150> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000746> [hit #7]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.000922> [hit #7]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.004106> [hit #7]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000345> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.001150> [hit #8]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000436> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.001637> [hit #9]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.002171> [hit #9]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.006367> [hit #9]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000153> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000696> [hit #10]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000213> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000798> [hit #11]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.001017> [hit #11]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.004978> [hit #11]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000218> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000979> [hit #12]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000221> request: GET /javascripts/jquery.js from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.017408> [hit #13]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000216> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000749> [hit #14]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.000950> [hit #14]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.004581> [hit #14]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000214> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000806> [hit #15]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.001056> [hit #15]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.004834> [hit #15]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000203> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000761> [hit #16]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.000967> [hit #16]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.005176> [hit #16]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000301> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.001085> [hit #17]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000220> request: GET /javascripts/jquery.js from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.001080> [hit #18]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000222> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000812> [hit #19]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.001056> [hit #19]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.005510> [hit #19]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000158> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000705> [hit #20]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000158> request: GET / from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.000566> [hit #21]Trying to match 'GET /' against /^\/$/ (generated from '/') in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 84
+[10569]  core @0.000783> [hit #21]  --> got 1 in /usr/local/share/perl/5.14.2/Dancer/Route.pm l. 102
+[10569]  core @0.004177> [hit #21]response: 200 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
+[10569]  core @0.000221> request: GET /css/style.css from 127.0.0.1 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 56
+[10569]  core @0.001260> [hit #22]response: 304 in /usr/local/share/perl/5.14.2/Dancer/Handler.pm l. 179
