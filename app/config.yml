@@ -7,7 +7,7 @@ appname: "app"
 
 # The default layout to use for your application (located in
 # views/layouts/main.tt)
-layout: "test"
+#layout: "test"
 
 # when the charset is set to UTF-8 Dancer will handle for you
 # all the magic of encoding and decoding. You should not care
@@ -16,13 +16,27 @@ charset: "UTF-8"
 
 # template engine
 # simple: default and very basic template engine
-# template_toolkit: TT
+#template_toolkit: TT
 
-template: "simple"
+#template: "simple"
 
-#template: "template_toolkit"
-# engines:
-#   template_toolkit:
-#     start_tag: '[%'
-#     end_tag:   '%]'
+template: "template_toolkit"
+engines:
+  template_toolkit:
+#    start_tag: '[%'
+#    end_tag:   '%]'
+  JSON:
+    allow_blessed: 1
+#    allow_nonref: 1
+    convert_blessed: 1
+
+
+plugins:
+  DBIC:
+    root:
+       dsn: dbi:mysql:recruitment
+       user: root
+       pass: root
+       options:
+         mysql_enable_utf8: 1
 
