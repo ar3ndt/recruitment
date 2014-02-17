@@ -1,0 +1,9 @@
+  <% IF results.size %>
+    <b>Books list</b>
+    <br><br>
+    <% FOREACH result IN results %>
+      <a href="/books/<% result.id %>"> <% result.title %></a><br>
+    <% END %>
+  <% ELSE %>
+    No books found
+  <% END %>

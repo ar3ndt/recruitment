@@ -1,0 +1,12 @@
+  <% IF results.size %>
+    <b>Book detailed information</b>
+    <br><br>
+    <% FOREACH result IN results %>
+      <p>Id: <% result.id %></p>
+      <p>Title: <% result.title %></p>
+      <p>ISBN: <% result.isbn_no %></p>
+      <p>Date: <% result.edition_date %></p>
+    <% END %>
+  <% ELSE %>
+    Book not found
+  <% END %>

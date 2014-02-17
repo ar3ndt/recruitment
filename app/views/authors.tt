@@ -1,0 +1,9 @@
+  <% IF results.size %>
+    <b>Authors list</b>
+    <br><br>
+    <% FOREACH result IN results %>
+      <a href="/authors/<% result.id %>"> <% result.surname %> <% result.name %></a><br>
+    <% END %>
+  <% ELSE %>
+    No authors found
+  <% END %>

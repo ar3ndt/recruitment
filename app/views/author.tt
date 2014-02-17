@@ -1,0 +1,30 @@
+  <% IF author.size %>
+    <b>Author detailed information</b>
+    <br><br>
+    <% FOREACH result IN author %>
+      <% IF result.name %>
+        <p>Name: <% result.name %></p>
+        <p>Surname: <% result.surname %></p>
+        <p>Country: <% result.country %></p>
+      <% END %>
+    <% END %>   <br>
+  <% ELSE %>
+    Author not found
+  <% END %>
+
+  <% IF books.size %>
+   <b>Books:</b>
+   <hr>
+   <br>
+    <% FOREACH result IN books %>
+      <% IF result.title %>
+        <p>Title: <% result.title %></p>
+        <p>Date: <% result.edition_date %></p>
+        <p>ISBN: <% result.isbn_no %></p>
+        <hr>
+      <% END %> 
+    <% END %>
+  <% ELSE %>
+    <hr>
+    Author has no books
+  <% END %>
