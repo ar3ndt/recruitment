@@ -2,7 +2,7 @@ package app;
 use Dancer ':syntax';
 use Dancer::Plugin::REST;
 use Dancer::Serializer::JSON;
-use Dancer::Plugin::DBIC qw(schema resultset rset);
+use Dancer::Plugin::DBIC qw(schema resultset);
 use Dancer::Template::TemplateToolkit;
 use Data::Dumper;
 use Try::Tiny;
@@ -13,25 +13,38 @@ my $bookstore_schema = schema 'root';
 my $status_ok = 1;
 
 get '/' => sub {
-     template 'index';
+     redirect '/index.html';
 };
 
 get '/index.html' => sub {
      template 'index';
 };
 
-##API Interface 
+##START## API Interface 
 
+##START## API for BOOKS
 get '/api/books' => sub {
     try {
           content_type 'application/json';
-          my $books =$bookstore_schema->resultset('Book')->search();
-          #$books->result_class('DBIx::Class::ResultClass::HashRefInflator');
-          return $books;
+          my @books =$bookstore_schema->resultset('Book')->search();
+
+          my $books_hash={};
+          foreach my $book ( @books)
+          {
+            $books_hash->{$book->id}->{"title"} = $book->title;
+            $books_hash->{$book->id}->{"date"} = $book->edition_date;
+            $books_hash->{$book->id}->{"isbn_no"} = $book->isbn_no;
+            $books_hash->{$book->id}->{"author_id"} = $book->author_id;
+          }
+         
+          return $books_hash;
     }
     catch {
         error $_;
-        send_error({ error => $_, status => "Books not found" });
+        send_error({ 
+                    error => $_, 
+                    status => "Books not found" 
+        });
     };
 
 };
@@ -61,7 +74,6 @@ post '/api/books' => sub {
 };
 
 del '/api/books/:id' => sub {
-    my $params;
     try {
           content_type 'application/json';
           my $book = $bookstore_schema->resultset('Book')->search({
@@ -89,10 +101,20 @@ get '/api/books/:id' => sub {
     try {
          content_type 'application/json';
          my $params = request->params;
-         my $book = $bookstore_schema->resultset('Book')->search({
-            id              => $params->{'id'},
+         my @book = $bookstore_schema->resultset('Book')->search({
+            id  => $params->{'id'},
          });
-         return $book;
+        
+         my $book_hash={};
+
+         if (@book){
+           $book_hash->{"title"} = $book[0]->title;
+           $book_hash->{"date"} = $book[0]->edition_date;
+           $book_hash->{"isbn_no"} = $book[0]->isbn_no;
+           $book_hash->{"author_id"} = $book[0]->author_id;
+         }
+
+         return $book_hash;
     }
     catch {
            error $_;
@@ -104,7 +126,7 @@ get '/api/books/:id' => sub {
 
 };
 
-put '/api/books/:id' => sub {
+any ['put','patch'] => '/api/books/:id' => sub {
     try {
          content_type 'application/json';
          my $params = request->params;
@@ -112,14 +134,152 @@ put '/api/books/:id' => sub {
             id    => $params->{'id'},
          });
 
-         my $hash_params = {};
+         my $hash_book_params = {};
 
-         $hash_params->{'title'} = $params->{'title'} if $params->{'title'};
-         $hash_params->{'edition_date'} = $params->{'edition_date'} if $params->{'edition_date'};
-         $hash_params->{'isbn_no'} = $params->{'isbn_no'} if $params->{'isbn_no'};
-         $hash_params->{'author_id'} = $params->{'author_id'} if $params->{'author_id'};
+         $hash_book_params->{'title'} = $params->{'title'} if $params->{'title'};
+         $hash_book_params->{'edition_date'} = $params->{'edition_date'} if $params->{'edition_date'};
+         $hash_book_params->{'isbn_no'} = $params->{'isbn_no'} if $params->{'isbn_no'};
+         $hash_book_params->{'author_id'} = $params->{'author_id'} if $params->{'author_id'};
      
-         my $update_status = $book->update($hash_params);
+         my $update_status = $book->update($hash_book_params);
+         
+         if ($update_status eq $status_ok){ 
+            return { 
+                    status => "OK. Updated",
+            };
+         }
+         else {
+                die "Error";
+         }
+    }
+    catch {
+           error $_;
+           send_error({ 
+                       error => $_, 
+                       status => "Book could not be updated" 
+           });
+    };
+
+};
+##END## API for BOOKS
+
+##START## API for AUTHORS
+
+get '/api/authors' => sub {
+    try {
+          content_type 'application/json';
+          my @authors =$bookstore_schema->resultset('Author')->search();
+
+          my $authors_hash={};
+          foreach my $author ( @authors)
+          {
+            $authors_hash->{$author->id}->{"name"} = $author->name;
+            $authors_hash->{$author->id}->{"surname"} = $author->surname;
+            $authors_hash->{$author->id}->{"country"} = $author->country;
+          }
+         
+          return $authors_hash;
+    }
+    catch {
+        error $_;
+        send_error({ 
+                    error => $_, 
+                    status => "Authors not found" 
+        });
+    };
+
+};
+
+post '/api/authors' => sub {
+    try {
+         content_type 'application/json';
+         my $params = request->params;
+         $bookstore_schema->resultset('Author')->create({
+            name           => $params->{'name'},
+            surname        => $params->{'surname'},
+            country        => $params->{'country'},
+         });
+
+         return { 
+                 status => "OK. Posted successfully",
+         };
+    }
+    catch {
+            error $_;
+            send_error({ 
+                         error => $_, 
+                         status => "Could not post" 
+            });
+    };
+};
+
+del '/api/authors/:id' => sub {
+    try {
+          content_type 'application/json';
+          my $author = $bookstore_schema->resultset('Author')->search({
+             id    => param('id'),
+          });
+        
+          my $authors_amount = $author->count;
+          $author->delete if $authors_amount;
+
+          return { 
+                  status => "OK",
+                  deleted_rows => $authors_amount,
+          };
+    }
+    catch {
+           error $_;
+           send_error({ 
+                       error => $_, 
+                       status => "Could not delete",
+           });
+    };
+};
+
+get '/api/authors/:id' => sub {
+    try {
+         content_type 'application/json';
+         my $params = request->params;
+         my @author = $bookstore_schema->resultset('Author')->search({
+            id  => $params->{'id'},
+         });
+        
+         my $author_hash={};
+         
+         if (@author){
+           $author_hash->{"name"} = $author[0]->name;
+           $author_hash->{"surname"} = $author[0]->surname;
+           $author_hash->{"country"} = $author[0]->country;
+         }
+
+         return $author_hash;
+    }
+    catch {
+           error $_;
+           send_error({ 
+                       error => $_, 
+                       status => "Author not found" 
+           });
+    };
+
+};
+
+any ['put','patch'] => '/api/authors/:id' => sub {
+    try {
+         content_type 'application/json';
+         my $params = request->params;
+         my $author = $bookstore_schema->resultset('Author')->search({ 
+            id    => $params->{'id'},
+         });
+
+         my $hash_author_params = {};
+
+         $hash_author_params->{'name'} = $params->{'name'} if $params->{'name'};
+         $hash_author_params->{'surname'} = $params->{'surname'} if $params->{'surname'};
+         $hash_author_params->{'country'} = $params->{'country'} if $params->{'country'};
+     
+         my $update_status = $author->update($hash_author_params);
          
          if ($update_status eq $status_ok){ 
             return { 
@@ -141,8 +301,12 @@ put '/api/books/:id' => sub {
 };
 
 
+##END## API for AUTHORS
 
-#End user functions
+##END## API Interface 
+
+
+##START## End user functions
 
 get '/authors' => sub {
     my @results = ();
@@ -180,14 +344,15 @@ get '/books/:id' => sub {
     @results = _search_book($book_id);
     
 
-#    return Dumper(@results);
+    #return Dumper(@results);
     template 'book', { 
                          results => \@results,
     };
 };
 
+##END## End user functions
 
-# subroutines section
+##START## subroutines section
 
 sub _search_authors {
     my @authors = $bookstore_schema->resultset('Author')->search(
@@ -239,12 +404,18 @@ sub _search_book {
         'books.id' => $book_id,
       },
       {
-        '+columns' => ['books.title'],
         join => 'books',
+        '+columns' => [{'title' => 'books.title'}],
       }
     );
+    
+    foreach my $res (@result){
+      my $var = $res->get_column('title');
+    }
+    
     return @result;
 };
 
+##END## subroutines section
 
 true;

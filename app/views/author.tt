@@ -1,5 +1,5 @@
   <% IF author.size %>
-    <b>Author detailed information</b>
+    <b>Author details</b>
     <br><br>
     <% FOREACH result IN author %>
       <% IF result.name %>
@@ -28,3 +28,6 @@
     <hr>
     Author has no books
   <% END %>
+
+<br><br>
+Back to <a href="/"> << bookstore </a> <a href="/authors"> << authors </a>

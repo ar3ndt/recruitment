@@ -1,8 +1,8 @@
   <% IF results.size %>
-    <b>Book detailed information</b>
+    <b>Book details</b>
     <br><br>
     <% FOREACH result IN results %>
-      <p>Id: <% result.id %></p>
+      <p>Author: <% result.name %> <% result.surname %></p>
       <p>Title: <% result.title %></p>
       <p>ISBN: <% result.isbn_no %></p>
       <p>Date: <% result.edition_date %></p>
@@ -10,3 +10,6 @@
   <% ELSE %>
     Book not found
   <% END %>
+
+<br><br>
+Back to <a href="/"> << bookstore </a> <a href="/books"> << books </a>

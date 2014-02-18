@@ -7,3 +7,5 @@
   <% ELSE %>
     No books found
   <% END %>
+<br>
+<a href="/"> << Back to bookstore </a>

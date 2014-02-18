@@ -7,3 +7,5 @@
   <% ELSE %>
     No authors found
   <% END %>
+<br>
+<a href="/"> << Back to bookstore </a>
