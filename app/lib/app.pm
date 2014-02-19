@@ -4,13 +4,14 @@ use Dancer::Plugin::REST;
 use Dancer::Serializer::JSON;
 use Dancer::Plugin::DBIC qw(schema resultset);
 use Dancer::Template::TemplateToolkit;
-use Data::Dumper;
+#use Data::Dumper;
 use Try::Tiny;
 
 set serializer => 'JSON';
 
 my $bookstore_schema = schema 'root';
 my $status_ok = 1;
+my $status_not_ok = 0;
 
 get '/' => sub {
      redirect '/index.html';
@@ -341,12 +342,10 @@ get '/books' => sub {
 get '/books/:id' => sub {
     my @results = ();
     my $book_id = params->{id};
-    @results = _search_book($book_id);
-    
+    my $result = _search_book($book_id);
 
-    #return Dumper(@results);
     template 'book', { 
-                         results => \@results,
+                         result => $result,
     };
 };
 
@@ -399,21 +398,37 @@ sub _search_books {
 sub _search_book {
     my ($book_id) = @_;
 
-    my @result = $bookstore_schema->resultset('Author')->search(
+    my @book = $bookstore_schema->resultset('Author')->search(
       {
         'books.id' => $book_id,
       },
       {
         join => 'books',
-        '+columns' => [{'title' => 'books.title'}],
+        '+columns' => [{'title' => 'books.title',
+                        'isbn_no' => 'books.isbn_no',
+                        'edition_date' => 'books.edition_date'
+                      }],
       }
     );
     
-    foreach my $res (@result){
-      my $var = $res->get_column('title');
-    }
+    if (@book){
+      my $title = $book[0]->get_column('title');
+      my $fullname = $book[0]->name." ".$book[0]->surname;
+      my $isbn_no = $book[0]->get_column('isbn_no');
+      my $edition_date = $book[0]->get_column('edition_date');
     
-    return @result;
+      my $book_params_hash = {
+         title => $title,
+         fullname => $fullname,
+         isbn_no => $isbn_no,
+         edition_date => $edition_date,
+      };    
+
+      return $book_params_hash;
+    }
+    else {
+      return $status_not_ok;
+    }
 };
 
 ##END## subroutines section

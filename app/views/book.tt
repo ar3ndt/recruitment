@@ -1,12 +1,10 @@
-  <% IF results.size %>
+  <% IF result.size AND result != 0 %>
     <b>Book details</b>
     <br><br>
-    <% FOREACH result IN results %>
-      <p>Author: <% result.name %> <% result.surname %></p>
+      <p>Author: <% result.fullname %> <% result.surname %></p>
       <p>Title: <% result.title %></p>
       <p>ISBN: <% result.isbn_no %></p>
       <p>Date: <% result.edition_date %></p>
-    <% END %>
   <% ELSE %>
     Book not found
   <% END %>
