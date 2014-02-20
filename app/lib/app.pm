@@ -54,16 +54,23 @@ post '/api/books' => sub {
     try {
          content_type 'application/json';
          my $params = request->params;
-         $bookstore_schema->resultset('Book')->create({
+         my @new_book = $bookstore_schema->resultset('Book')->create({
             title           => $params->{'title'},
             edition_date    => $params->{'edition_date'},
             isbn_no         => $params->{'isbn_no'},
             author_id       => $params->{'author_id'},
          });
 
-         return { 
-                 status => "OK. Posted successfully",
-         };
+         my $book_hash={};
+
+         if (@new_book){
+           $book_hash->{"title"} = $new_book[0]->title;
+           $book_hash->{"edition_date"} = $new_book[0]->edition_date;
+           $book_hash->{"isbn_no"} = $new_book[0]->isbn_no;
+           $book_hash->{"author_id"} = $new_book[0]->author_id;
+         }
+
+         return $book_hash;
     }
     catch {
             error $_;
@@ -131,7 +138,7 @@ any ['put','patch'] => '/api/books/:id' => sub {
     try {
          content_type 'application/json';
          my $params = request->params;
-         my $book =$bookstore_schema->resultset('Book')->search({ 
+         my @book =$bookstore_schema->resultset('Book')->search({ 
             id    => $params->{'id'},
          });
 
@@ -142,16 +149,19 @@ any ['put','patch'] => '/api/books/:id' => sub {
          $hash_book_params->{'isbn_no'} = $params->{'isbn_no'} if $params->{'isbn_no'};
          $hash_book_params->{'author_id'} = $params->{'author_id'} if $params->{'author_id'};
      
-         my $update_status = $book->update($hash_book_params);
-         
-         if ($update_status eq $status_ok){ 
-            return { 
-                    status => "OK. Updated",
-            };
+         $book[0]->update($hash_book_params);
+
+         my $book_hash={};
+
+         if (@book){
+           $book_hash->{"title"} = $book[0]->title;
+           $book_hash->{"edition_date"} = $book[0]->edition_date;
+           $book_hash->{"isbn_no"} = $book[0]->isbn_no;
+           $book_hash->{"author_id"} = $book[0]->author_id;
          }
-         else {
-                die "Error";
-         }
+
+         return $book_hash;  
+
     }
     catch {
            error $_;
@@ -195,15 +205,21 @@ post '/api/authors' => sub {
     try {
          content_type 'application/json';
          my $params = request->params;
-         $bookstore_schema->resultset('Author')->create({
+         my @new_author = $bookstore_schema->resultset('Author')->create({
             name           => $params->{'name'},
             surname        => $params->{'surname'},
             country        => $params->{'country'},
          });
 
-         return { 
-                 status => "OK. Posted successfully",
-         };
+         my $author_hash={};
+
+         if (@new_author){
+           $author_hash->{"name"} = $new_author[0]->name;
+           $author_hash->{"surname"} = $new_author[0]->surname;
+           $author_hash->{"country"} = $new_author[0]->country;
+         }
+
+         return $author_hash;
     }
     catch {
             error $_;
@@ -270,7 +286,7 @@ any ['put','patch'] => '/api/authors/:id' => sub {
     try {
          content_type 'application/json';
          my $params = request->params;
-         my $author = $bookstore_schema->resultset('Author')->search({ 
+         my @author = $bookstore_schema->resultset('Author')->search({ 
             id    => $params->{'id'},
          });
 
@@ -280,16 +296,18 @@ any ['put','patch'] => '/api/authors/:id' => sub {
          $hash_author_params->{'surname'} = $params->{'surname'} if $params->{'surname'};
          $hash_author_params->{'country'} = $params->{'country'} if $params->{'country'};
      
-         my $update_status = $author->update($hash_author_params);
-         
-         if ($update_status eq $status_ok){ 
-            return { 
-                    status => "OK. Updated",
-            };
+         $author[0]->update($hash_author_params);
+
+         my $author_hash={};
+
+         if (@author){
+           $author_hash->{"name"} = $author[0]->name;
+           $author_hash->{"surname"} = $author[0]->surname;
+           $author_hash->{"country"} = $author[0]->country;
          }
-         else {
-                die "Error";
-         }
+
+         return $author_hash;         
+
     }
     catch {
            error $_;
